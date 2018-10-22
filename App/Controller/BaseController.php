@@ -7,6 +7,9 @@ abstract class BaseController{
 
     }
 
+    public function getSeq() {
+
+    }
     public function log($msg) {
         $log = new Log();
         $log->write($msg);

@@ -32,6 +32,17 @@ class Factory
         return $conn;
     }
 
+    static function getRedisCluster()
+    {
+        $conn = Register::get('redisCluster');
+        if (!$conn) {
+            $redis = RedisCluster::getInstance($GLOBALS['redisNodeConfig']);
+            $conn = $redis->getRedis();
+            Register::set('redisCluster', $conn);
+        }
+        return $conn;
+    }
+
     static function getMongo()
     {
         $mongo = Register::get('mongo');
@@ -41,4 +52,50 @@ class Factory
         }
         return $mongo;
     }
+
+    static function getCurlTool()
+    {
+        $curl = Register::get('curl');
+        if (!$curl) {
+            $curl = new Curl();
+            Register::set('curl', $curl);
+        }
+        return $curl;
+    }
+
+    static function getLogTool()
+    {
+        $mongo = Register::get('mongo');
+        if (!$mongo) {
+            $mongo = Mongo::getInstance($GLOBALS['mongoConfig']);
+            Register::set('mongo', $mongo);
+        }
+        return $mongo;
+    }
+
+    static function getOpenApi($type)
+    {
+        switch ($type) {
+            case "token":
+                $key = 'openApiToken';
+                break;
+            case  "auth":
+                $key = 'openApiAuth';
+                break;
+        }
+        $openApi = Register::get($key);
+        if (!$openApi) {
+            switch ($type) {
+                case "token":
+                    $openApi = new OpenApiByToken();
+                    break;
+                case  "auth":
+                    $openApi = new OpenApiByAuth();
+                    break;
+            }
+            Register::set($key, $openApi);
+        }
+        return $openApi;
+    }
+
 }

@@ -13,6 +13,7 @@ class Json
 
     function after($return_value)
     {
+        if(empty($return_value)) $return_value = [];
         if ($_GET['return'] == 'json')
         {
             echo json_encode($return_value);
@@ -25,5 +26,6 @@ class Json
             exit;
         }
         echo json_encode($return_value);
+        exit;
     }
 }

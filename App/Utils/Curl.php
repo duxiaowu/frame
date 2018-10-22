@@ -51,7 +51,7 @@ class Curl
      * @return void
      * @access public
      */
-    public function open($url, $timeout = 30)
+    public function open($url, $header, $timeout = 30)
     {
         if (!is_resource($this->_curl)) {
             $this->_curl = curl_init();

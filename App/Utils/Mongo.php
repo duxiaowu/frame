@@ -54,17 +54,17 @@ class Mongo
         return $this->_mongo->executeBulkWrite($this->_db . '.' . $table, $this->_bulk);
     }
 
-    public function update($table, $data, $condition)
+    public function update($table,$condition, $data)
     {
         $this->_bulk->update(
             $condition,
             ['$set' => $data],
-            ['multi' => false, 'upsert' => false]
+            ['multi' => true, 'upsert' => false]
         );
         return $this->_mongo->executeBulkWrite($this->_db . '.' . $table, $this->_bulk);
     }
 
-    public function delete($table, $condition, $limit = 1)
+    public function delete($table, $condition, $limit = 0)
     {
         $this->_bulk->delete($condition, ['limit' => $limit]);   // limit 为 1 时，删除第一条匹配数据
         return $this->_mongo->executeBulkWrite($this->_db . '.' . $table, $this->_bulk);
@@ -73,11 +73,6 @@ class Mongo
     public function select($table, $filter = array(), $options = array())
     {
         $arr = array();
-      //  $filter = ['userid' => ['$gt' => '352918378']];
-        $options = [
-            'projection' => ['_id' => 0],
-            'sort' => ['time' => -1],
-        ];
         $query = new DriveQuery($filter, $options);
         $cursor = $this->_mongo->executeQuery($this->_db . '.' . $table, $query);
         foreach ($cursor as $document) {
