@@ -1,17 +1,19 @@
 <?php
+
 namespace App\Controller;
-use App\Utils\Log;
-abstract class BaseController{
+
+use App\Utils\Factory;
+
+abstract class BaseController
+{
     public function __construct()
     {
 
     }
 
-    public function getSeq() {
-
-    }
-    public function log($msg) {
-        $log = new Log();
-        $log->write($msg);
+    public function log($msg)
+    {
+        $log = Factory::getLogTool('web');
+        $log->write(__CLASS__ . '|' . __METHOD__ . $msg);
     }
 }

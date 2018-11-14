@@ -6,6 +6,19 @@
  * des:
  */
 namespace App\Model;
-abstract class  model {
+use App\Utils\Factory;
 
+abstract class  model
+{
+    public static function webLog($msg)
+    {
+        $log = Factory::getLogTool('web');
+        $log->write($msg);
+    }
+
+    public static function cronLog($msg)
+    {
+        $log = Factory::getLogTool('cron');
+        $log->write($msg);
+    }
 }

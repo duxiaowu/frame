@@ -14,12 +14,12 @@ class Json
     function after($return_value)
     {
         if(empty($return_value)) $return_value = [];
-        if ($_GET['return'] == 'json')
+        if (isset($_GET['return']) && $_GET['return'] == 'json')
         {
             echo json_encode($return_value);
             exit;
         }
-        if ($_GET['return'] == 'jsonp')
+        if (isset($_GET['return']) && $_GET['return'] == 'jsonp')
         {
             $callback = $_REQUEST['callback'];
             echo $callback . '(' . json_encode($return_value) . ')';

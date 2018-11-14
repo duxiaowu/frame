@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin:*');
 require_once __DIR__ . '/global.php';
 require_once _ROOT . '/autoload.php';
 $con = isset($_REQUEST['con']) ? $_REQUEST['con'] : '';

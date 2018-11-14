@@ -35,9 +35,5 @@ define("OPENAI_IP", "http://172.20.207.218/");
 define("APPID","8e21aaDE5D77");
 define("SECRET","690bf4d85e688322e63ada05479a5249");
 #define("CBAS_URL", OPENAI_IP . "compute/v1/oprt_exp_server?uid=%s&expid=1");
-define("CBAS_URL", "http://10.10.24.190/duweibin/newTopics/s.php");
-#define("TOKEN_URL", OPENAI_IP . "auth/v1/token?appid=".APPID."&secret=".SECRET);
-define("TOKEN_URL", "http://10.10.24.190/duweibin/newTopics/t.php");
-define("SNS_KEY","mb_topics_sns_%s");//mb_topics_seq_605443568
-
-define("SNS_URL","http://t.10jqka.com.cn/api.php?method=post.getPostDataForCa&pid=%s");
+define("CBAS_URL", "http://testm.10jqka.com.cn/eq/interface/topics/test.php");
+define("TOKEN_URL", OPENAI_IP . "auth/v1/token?appid=".APPID."&secret=".SECRET);
