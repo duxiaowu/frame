@@ -9,23 +9,23 @@ class Log
 {
     private $_root;
 
-    public function __construct($root = '')
+    public function __construct($type = '')
     {
-        ($root == "") ? $this->_root = "/tmp/" : $this->_root = $root;
+        if($type == "")  $this->_root = "/tmp/" ;
+        $this->_root = _LOG . '/' . $type . '/';
     }
 
     public function write($msg)
     {
-        if (!defined('__SCRIPT')) {
-            define('__SCRIPT', 'unknow');
-        }
+        if(isset($_REQUEST['con'])) $module = $_REQUEST['con'];
+        if(isset($argv[1])) $module = $argv[1];
         $dir = $this->_root . '/' . date('Ymd');
         if (!file_exists($dir)) {
             $this->mkdirs($dir);
         }
-        $logFile = $dir . '/' . __SCRIPT . '.log';
+        $logFile = $dir . '/' . $module . '.log';
 
-        $msg = '[' . date('Y-m-d H:i:s') . '] ' . $msg . "\n";
+        $msg = '[' . date('Y-m-d H:i:s') . ']' . $msg . PHP_EOL;
         file_put_contents($logFile, $msg, FILE_APPEND);
     }
 

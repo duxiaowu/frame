@@ -63,14 +63,15 @@ class Factory
         return $curl;
     }
 
-    static function getLogTool()
+    static function getLogTool($type)
     {
-        $mongo = Register::get('mongo');
-        if (!$mongo) {
-            $mongo = Mongo::getInstance($GLOBALS['mongoConfig']);
-            Register::set('mongo', $mongo);
+
+        $log = Register::get($type);
+        if (!$log) {
+            $log = new Log($type);
+            Register::set($type, $log);
         }
-        return $mongo;
+        return $log;
     }
 
     static function getOpenApi($type)
