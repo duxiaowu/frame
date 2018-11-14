@@ -14,10 +14,9 @@ trait OpenApiTrait
         $curl = Factory::getCurlTool();
         $curl->open($url, $this->header);
         try {
-            $data = $curl->get($filed);
+            $data = $curl->post($filed);
         } catch (Exception $e) {
-            $log = Factory::getLogTool('web');
-            $log->write($e->getMessage());
+            echo $e->getMessage();
         }
         $arr = json_decode($data, true);
         return $arr;

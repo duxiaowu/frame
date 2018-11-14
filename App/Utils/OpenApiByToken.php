@@ -50,3 +50,15 @@ class OpenApiByToken
     }
 }
 
+
+class OpenApiByAuth
+{
+    use OpenApiTrait;
+    protected static $auth = "Basic OGUyMWFhREU1RDc3OjBiNTA1YTQ2NDE0ZGFlZWMxZjU5YzVhYjBjOGUyMDkx";
+
+    public function __construct()
+    {
+        $this->header = array("Authorization:" . self::$auth);
+    }
+}
+

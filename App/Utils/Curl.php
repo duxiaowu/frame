@@ -38,6 +38,7 @@ class Curl
      */
     public function __construct()
     {
+        $this->_options['CURLOPT_HEADER'] = 0;
         $this->_options['CURLOPT_RETURNTRANSFER'] = 1;
         $this->_options['CURLOPT_USERAGENT'] = 'Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-CN; rv:1.8.1.20) Gecko/20081217 Firefox/2.0.0.20';
     }
@@ -50,7 +51,7 @@ class Curl
      * @return void
      * @access public
      */
-    public function open($url, $header = 0, $timeout = 30)
+    public function open($url, $header, $timeout = 30)
     {
         if (!is_resource($this->_curl)) {
             $this->_curl = curl_init();
@@ -58,7 +59,7 @@ class Curl
         $this->_uri = $url;
         curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, $this->_options['CURLOPT_RETURNTRANSFER']);
         curl_setopt($this->_curl, CURLOPT_USERAGENT, $this->_options['CURLOPT_USERAGENT']);
-        curl_setopt($this->_curl, CURLOPT_HEADER, $header);
+        curl_setopt($this->_curl, CURLOPT_HEADER, $this->_options['CURLOPT_HEADER']);
         curl_setopt($this->_curl, CURLOPT_TIMEOUT, $timeout);
     }
 
@@ -101,7 +102,7 @@ class Curl
      * @access public
      * @return string
      */
-    public function get($data = '')
+    public function get($data)
     {
         $url = $this->_uri;
         if (!empty ($data)) {
