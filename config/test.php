@@ -30,10 +30,3 @@ $GLOBALS['mongoConfig'] = array(
     'port' => '27017',
     'db' => 'topic',
 );
-$GLOBALS['redisNodeConfig'] = array('10.10.80.44:7000', '10.10.80.44:7001', '10.10.80.44:7002', '10.10.80.44:7003', '10.10.80.44:7004', '10.10.80.44:7005', 1.5, 1.5);
-define("OPENAI_IP", "http://172.20.207.218/");
-define("APPID","8e21aaDE5D77");
-define("SECRET","690bf4d85e688322e63ada05479a5249");
-#define("CBAS_URL", OPENAI_IP . "compute/v1/oprt_exp_server?uid=%s&expid=1");
-define("CBAS_URL", "http://testm.10jqka.com.cn/eq/interface/topics/test.php");
-define("TOKEN_URL", OPENAI_IP . "auth/v1/token?appid=".APPID."&secret=".SECRET);
