@@ -8,8 +8,14 @@
 
 namespace App\Utils;
 use MongoDB\Driver\BulkWrite as BulkManager;
+use MongoDB\Driver\Command;
+use MongoDB\Driver\Cursor;
+use MongoDB\Driver\Exception\InvalidArgumentException;
+use MongoDB\Driver\Exception\RuntimeException;
 use MongoDB\Driver\Manager as MongoDBManager;
 use MongoDB\Driver\Query as DriveQuery;
+use MongoDB\Driver\ReadPreference;
+use MongoDB\Driver\WriteConcern;
 class Mongo
 {
     private $_mongo;
@@ -19,8 +25,9 @@ class Mongo
 
     protected function __construct($mongoConfig)
     {
-        $dsn = "mongodb://{$mongoConfig['host']}:{$mongoConfig['port']}";
+        $dsn = $mongoConfig['dsn'];
         $this->_mongo = new MongoDBManager($dsn);
+        $this->_bulk = new BulkManager();
         $this->_db = $mongoConfig['db'];
     }
 
@@ -41,7 +48,6 @@ class Mongo
 
     public function insert($table, $data)
     {
-        $this->_bulk = new BulkManager();
         foreach ($data as $value) {
             $this->_bulk->insert($value);
         }
@@ -50,7 +56,6 @@ class Mongo
 
     public function update($table,$condition, $data)
     {
-        $this->_bulk = new BulkManager();
         $this->_bulk->update(
             $condition,
             ['$set' => $data],
@@ -61,7 +66,6 @@ class Mongo
 
     public function delete($table, $condition, $limit = 0)
     {
-        $this->_bulk = new BulkManager();
         $this->_bulk->delete($condition, ['limit' => $limit]);   // limit 为 1 时，删除第一条匹配数据
         return $this->_mongo->executeBulkWrite($this->_db . '.' . $table, $this->_bulk);
     }

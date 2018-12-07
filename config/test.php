@@ -26,7 +26,6 @@ $GLOBALS['dbConfig'] = array(
     'db' => 'eq',
 );
 $GLOBALS['mongoConfig'] = array(
-    'host' => '127.0.0.1',
-    'port' => '27017',
+    'dsn' => 'mongodb://127.0.0.1:28011,127.0.0.1:28012,127.0.0.1.28013/?replicaSet=mainrs',
     'db' => 'topic',
 );
