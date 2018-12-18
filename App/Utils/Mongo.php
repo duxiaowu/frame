@@ -80,5 +80,12 @@ class Mongo
         }
         return $arr;
     }
+
+    public function query($cmd)
+    {
+        $cursor = $this->_mongo->executeCommand($this->_db, $cmd); // retrieve the results
+        $scents = current($cursor->toArray())->values; // get the distinct values as an array
+        return $scents;
+    }
 }
 
