@@ -11,7 +11,7 @@ class Db
     {//防止在外部实例化该类
         $this->dbConn = mysqli_init();
         $this->dbConn->options(MYSQLI_OPT_CONNECT_TIMEOUT, 120); //设置超时时间
-        $this->dbConn->real_connect($dbConfig['host'], $dbConfig['user'], $dbConfig['pass'], $dbConfig['db']);
+        $this->dbConn->real_connect($dbConfig['host'], $dbConfig['user'], $dbConfig['pass'], $dbConfig['db'], $dbConfig['port']);
         $this->dbConn->query("set names utf8");
     }
 
